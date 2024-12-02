@@ -1,10 +1,11 @@
-nav {
-  border-bottom: 1px solid gray;
+.navigation {
+  border-bottom: 1px solid #202020;
 }
 
 .nav {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 
   font-size: 1.25rem;
 }

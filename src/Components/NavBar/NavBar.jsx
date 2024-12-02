@@ -8,7 +8,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav>
+      <nav className={styles.navigation}>
         <ul className={`${styles.nav} container`}>
           <li className={styles.home}>
             <Link to="/" className={styles["nav-link"]}>
