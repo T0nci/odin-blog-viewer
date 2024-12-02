@@ -1,0 +1,33 @@
+nav {
+  border-bottom: 1px solid gray;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  color: #00ffff;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 100ms ease-in-out;
+}
+
+.nav-link:hover {
+  border-bottom-color: cyan;
+}
+
+.home {
+  margin-right: auto;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 500px) {
+  .nav {
+    gap: 1rem;
+  }
+}
