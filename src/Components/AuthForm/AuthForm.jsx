@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
+import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import styles from "./AuthForm.module.css";
 
 // One component for both login and register because they are almost exactly the same
 const AuthForm = ({ path }) => {
-  const setToken = useOutletContext();
+  const { setToken } = useOutletContext();
+  const navigate = useNavigate();
   const [fields, setFields] = useState(
     path === "login"
       ? { username: "", password: "" }
@@ -17,7 +18,26 @@ const AuthForm = ({ path }) => {
     e.preventDefault();
 
     if (path === "login") {
-      // validate fields
+      fetch(import.meta.env.VITE_API_URL + `/${path}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(fields),
+        method: "POST",
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.errors) {
+            setErrors(res.errors);
+          } else {
+            // wherever the token is updated, the state needs to also be updated
+            localStorage.setItem("token", res.token);
+            setToken(res.token);
+            navigate("/");
+          }
+        })
+        .catch((err) => setErrors([{ msg: err }]));
     }
   };
 
@@ -28,9 +48,11 @@ const AuthForm = ({ path }) => {
           {path[0].toUpperCase() + path.slice(1)}
         </h1>
         {errors !== null && (
-          <ul>
+          <ul className={styles.errors}>
             {errors.map((error) => (
-              <li key={error.msg}>{error.msg}</li>
+              <li key={error.msg} className={styles.error}>
+                {error.msg}
+              </li>
             ))}
           </ul>
         )}
