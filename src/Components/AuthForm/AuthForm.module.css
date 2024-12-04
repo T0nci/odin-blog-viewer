@@ -1,0 +1,62 @@
+.form {
+  border-radius: 10px;
+  background-color: #2c2c2c;
+  padding: 1rem;
+  width: 300px;
+  margin: 1rem auto 0;
+}
+
+.form > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 1.25rem;
+}
+
+.input {
+  border-radius: 5px;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  outline: 1px solid gray;
+  height: auto;
+}
+
+.input:focus {
+  outline: 1px solid #00ffff;
+}
+
+.submit {
+  width: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  color: #00ffff;
+  background-color: #535353;
+  cursor: pointer;
+}
+
+.info {
+  text-align: center;
+}
+
+.info > a {
+  color: #00ffff;
+}
+
+.info > a:hover {
+  color: #00dddd;
+}
+
+.info > a:active {
+  color: #00bbbb;
+}
