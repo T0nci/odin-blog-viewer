@@ -2,12 +2,13 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import styles from "./NavBar.module.css";
 import "../../global.css";
+import GithubLogo from "../../assets/github.svg";
 
 const NavBar = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
-    <>
+    <div className={styles["main-container"]}>
       <nav className={styles.navigation}>
         <ul className={`${styles.nav} container`}>
           <li className={styles.home}>
@@ -37,12 +38,20 @@ const NavBar = () => {
           )}
         </ul>
       </nav>
-      <main>
+      <main className={styles.main}>
         <div className="container">
           <Outlet context={{ setToken }} />
         </div>
       </main>
-    </>
+      <footer className={styles["main-footer"]}>
+        <div className={styles.footer + " container"}>
+          <a href="https://github.com/T0nci" className={styles.github}>
+            <img src={GithubLogo} alt="Github Logo" className={styles.icon} />
+            T0nci
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 };
 

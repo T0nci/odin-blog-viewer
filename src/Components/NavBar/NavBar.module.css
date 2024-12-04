@@ -1,5 +1,44 @@
+.main-container {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* To push it down if the height isn't filled */
+.main {
+  margin-bottom: auto;
+}
+
+.main-footer {
+  background-color: #383838;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.github {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid transparent;
+}
+
+.github:hover {
+  border-bottom-color: inherit;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
 .navigation {
-  border-bottom: 1px solid #202020;
+  background-color: #292929;
 }
 
 .nav {
