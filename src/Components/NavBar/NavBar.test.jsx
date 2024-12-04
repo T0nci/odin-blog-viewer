@@ -59,7 +59,9 @@ describe("NavBar Component", () => {
 
     expect(container).toMatchInlineSnapshot(`
       <div>
-        <nav>
+        <nav
+          class="_navigation_7ceb2b"
+        >
           <ul
             class="_nav_7ceb2b container"
           >
@@ -109,7 +111,9 @@ describe("NavBar Component", () => {
 
     expect(container).toMatchInlineSnapshot(`
       <div>
-        <nav>
+        <nav
+          class="_navigation_7ceb2b"
+        >
           <ul
             class="_nav_7ceb2b container"
           >
