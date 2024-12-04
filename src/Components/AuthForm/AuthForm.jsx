@@ -17,28 +17,33 @@ const AuthForm = ({ path }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (path === "login") {
-      fetch(import.meta.env.VITE_API_URL + `/${path}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(fields),
-        method: "POST",
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.errors) {
-            setErrors(res.errors);
-          } else {
+    fetch(import.meta.env.VITE_API_URL + `/${path}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(fields),
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.errors) {
+          setErrors(res.errors);
+        } else {
+          // if it's a success, and it's a login then we need to set the token,
+          // otherwise it's a register and we need to redirect to login
+          if (path === "login") {
             // wherever the token is updated, the state needs to also be updated
             localStorage.setItem("token", res.token);
             setToken(res.token);
             navigate("/");
+          } else {
+            navigate("/login");
           }
-        })
-        .catch((err) => setErrors([{ msg: err }]));
-    }
+        }
+      })
+      .catch((err) => setErrors([{ msg: err }]));
   };
 
   return (
@@ -103,7 +108,7 @@ const AuthForm = ({ path }) => {
                 Confirm password:
               </label>
               <input
-                type="text"
+                type="password"
                 name="confirm"
                 id="confirm"
                 required
