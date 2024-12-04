@@ -58,14 +58,15 @@ const Home = () => {
       ) : posts.length > 0 ? (
         <ul className={styles.cards}>
           {posts.map((post) => (
-            <li
-              key={post.id}
-              onClick={() => navigate(`/posts/${post.id}`)}
-              className={styles.card}
-            >
-              <p className={styles.title}>{post.title}</p>
-              <p className={styles.content}>{formatContent(post.content)}</p>
-              <p className={styles.date}>{formatDate(post.date_published)}</p>
+            <li key={post.id}>
+              <button
+                onClick={() => navigate(`/posts/${post.id}`)}
+                className={styles.card}
+              >
+                <p className={styles.title}>{post.title}</p>
+                <p className={styles.content}>{formatContent(post.content)}</p>
+                <p className={styles.date}>{formatDate(post.date_published)}</p>
+              </button>
             </li>
           ))}
         </ul>
