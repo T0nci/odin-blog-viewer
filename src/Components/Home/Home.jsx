@@ -4,7 +4,7 @@ import { formatDate, formatContent } from "../../utils";
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +45,16 @@ const Home = () => {
       </p>
       {posts instanceof Error ? (
         <p className={styles.error}>Error loading posts</p>
+      ) : posts === null ? (
+        <div className={styles.loading}>
+          <div className={styles.box}>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+            <div className={styles.dot}></div>
+          </div>
+          Loading posts
+        </div>
       ) : posts.length > 0 ? (
         <ul className={styles.cards}>
           {posts.map((post) => (
@@ -60,15 +70,7 @@ const Home = () => {
           ))}
         </ul>
       ) : (
-        <div className={styles.loading}>
-          <div className={styles.box}>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-          </div>
-          Loading posts
-        </div>
+        <p className={styles.empty}>No blogs published yet.</p>
       )}
     </>
   );
