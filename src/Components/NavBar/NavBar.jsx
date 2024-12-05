@@ -48,7 +48,7 @@ const NavBar = () => {
       </nav>
       <main className={styles.main}>
         <div className="container">
-          <Outlet context={{ setDisplayName }} />
+          <Outlet context={{ displayName, setDisplayName }} />
         </div>
       </main>
       <footer className={styles["main-footer"]}>
