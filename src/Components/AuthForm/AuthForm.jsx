@@ -27,7 +27,6 @@ const AuthForm = ({ path }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.errors) {
           setErrors(res.errors);
         } else {
@@ -44,7 +43,7 @@ const AuthForm = ({ path }) => {
           }
         }
       })
-      .catch((err) => setErrors([{ msg: err }]));
+      .catch((err) => setErrors([{ msg: `${err}` }]));
   };
 
   return (
@@ -100,6 +99,7 @@ const AuthForm = ({ path }) => {
               }))
             }
             className={styles.input}
+            data-testid="password"
           />
         </div>
         {path === "register" && (
@@ -121,6 +121,7 @@ const AuthForm = ({ path }) => {
                   }))
                 }
                 className={styles.input}
+                data-testid="confirm"
               />
             </div>
             <div>
