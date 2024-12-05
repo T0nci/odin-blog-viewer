@@ -5,7 +5,9 @@ import "../../global.css";
 import GithubLogo from "../../assets/github.svg";
 
 const NavBar = () => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [displayName, setDisplayName] = useState(
+    localStorage.getItem("displayName"),
+  );
 
   return (
     <div className={styles["main-container"]}>
@@ -16,7 +18,7 @@ const NavBar = () => {
               webdev.blog
             </Link>
           </li>
-          {token ? (
+          {displayName ? (
             <li>
               <Link to="/logout" className={styles["nav-link"]}>
                 Logout
@@ -40,7 +42,7 @@ const NavBar = () => {
       </nav>
       <main className={styles.main}>
         <div className="container">
-          <Outlet context={{ setToken }} />
+          <Outlet context={{ setDisplayName }} />
         </div>
       </main>
       <footer className={styles["main-footer"]}>

@@ -5,7 +5,7 @@ import styles from "./AuthForm.module.css";
 
 // One component for both login and register because they are almost exactly the same
 const AuthForm = ({ path }) => {
-  const { setToken } = useOutletContext();
+  const { setDisplayName } = useOutletContext();
   const navigate = useNavigate();
   const [fields, setFields] = useState(
     path === "login"
@@ -31,12 +31,13 @@ const AuthForm = ({ path }) => {
         if (res.errors) {
           setErrors(res.errors);
         } else {
-          // if it's a success, and it's a login then we need to set the token,
+          // if it's a success, and it's a login then we need to set the token and display name,
           // otherwise it's a register and we need to redirect to login
           if (path === "login") {
             // wherever the token is updated, the state needs to also be updated
             localStorage.setItem("token", res.token);
-            setToken(res.token);
+            localStorage.setItem("displayName", res.displayName);
+            setDisplayName(res.displayName);
             navigate("/");
           } else {
             navigate("/login");

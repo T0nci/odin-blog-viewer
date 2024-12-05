@@ -39,9 +39,9 @@ vi.mock(import("react"), async (importOriginal) => {
 
   const useState = vi.fn();
   useState.mockImplementationOnce(() => [null, () => {}]);
-  useState.mockImplementationOnce(() => ["a token string", () => {}]);
+  useState.mockImplementationOnce(() => ["display name", () => {}]);
   useState.mockImplementationOnce(() => [null, () => {}]);
-  useState.mockImplementationOnce(() => ["a token string", () => {}]);
+  useState.mockImplementationOnce(() => ["display name", () => {}]);
 
   return {
     ...mod,
@@ -50,7 +50,7 @@ vi.mock(import("react"), async (importOriginal) => {
 });
 
 describe("NavBar Component", () => {
-  it("renders without token", () => {
+  it("renders without display name", () => {
     let container = null;
     act(() => {
       const { container: temp } = render(<NavBar />);
@@ -127,7 +127,7 @@ describe("NavBar Component", () => {
     `);
   });
 
-  it("renders with token", () => {
+  it("renders with display name", () => {
     let container = null;
     act(() => {
       const { container: temp } = render(<NavBar />);
