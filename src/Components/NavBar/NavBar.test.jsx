@@ -1,11 +1,18 @@
+/* eslint-disable no-undef */
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NavBar from "./NavBar";
 
+global.localStorage = {
+  getItem: vi.fn(),
+  removeItem: vi.fn(),
+};
+
 const mocks = vi.hoisted(() => {
   return {
     link: vi.fn(),
+    setDisplayName: vi.fn(),
   };
 });
 
@@ -41,7 +48,7 @@ vi.mock(import("react"), async (importOriginal) => {
   useState.mockImplementationOnce(() => [null, () => {}]);
   useState.mockImplementationOnce(() => ["display name", () => {}]);
   useState.mockImplementationOnce(() => [null, () => {}]);
-  useState.mockImplementationOnce(() => ["display name", () => {}]);
+  useState.mockImplementationOnce(() => ["display name", mocks.setDisplayName]);
 
   return {
     ...mod,
@@ -156,12 +163,11 @@ describe("NavBar Component", () => {
                 </a>
               </li>
               <li>
-                <a
-                  class="_nav-link_7ceb2b"
-                  href="/logout"
+                <button
+                  class="_logout_7ceb2b"
                 >
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </nav>
@@ -214,7 +220,12 @@ describe("NavBar Component", () => {
     const user = userEvent.setup();
     render(<NavBar />);
 
-    await user.click(screen.getByRole("link", { name: "Logout" }));
-    expect(mocks.link).toHaveBeenCalledWith("/");
+    await user.click(screen.getByRole("button", { name: "Logout" }));
+    expect(global.localStorage.removeItem).toHaveBeenNthCalledWith(
+      1,
+      "displayName",
+    );
+    expect(global.localStorage.removeItem).toHaveBeenNthCalledWith(2, "token");
+    expect(mocks.setDisplayName).toHaveBeenCalledWith(null);
   });
 });

@@ -9,6 +9,12 @@ const NavBar = () => {
     localStorage.getItem("displayName"),
   );
 
+  const handleLogout = () => {
+    localStorage.removeItem("displayName");
+    localStorage.removeItem("token");
+    setDisplayName(null);
+  };
+
   return (
     <div className={styles["main-container"]}>
       <nav className={styles.navigation}>
@@ -20,9 +26,9 @@ const NavBar = () => {
           </li>
           {displayName ? (
             <li>
-              <Link to="/logout" className={styles["nav-link"]}>
+              <button onClick={handleLogout} className={styles.logout}>
                 Logout
-              </Link>
+              </button>
             </li>
           ) : (
             <>

@@ -48,6 +48,16 @@
   font-size: 1.25rem;
 }
 
+.logout {
+  font-size: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: #00ffff;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 100ms ease-in-out;
+}
+
 .nav-link {
   color: #00ffff;
   text-decoration: none;
@@ -55,7 +65,8 @@
   transition: border-bottom-color 100ms ease-in-out;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.logout:hover {
   border-bottom-color: cyan;
 }
 
