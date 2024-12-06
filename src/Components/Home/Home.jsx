@@ -46,12 +46,12 @@ const Home = () => {
       {posts instanceof Error ? (
         <p className={styles.error}>Error loading posts</p>
       ) : posts === null ? (
-        <div className={styles.loading}>
-          <div className={styles.box}>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
+        <div className="loading">
+          <div className="box">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
           </div>
           Loading posts
         </div>
