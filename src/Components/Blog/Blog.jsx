@@ -73,6 +73,7 @@ const Blog = () => {
 
       if (response.error === "401") {
         localStorage.clear("token");
+        localStorage.clear("displayName");
         setDisplayName(null);
       } else if (response.error)
         setComment((prevComment) => ({
