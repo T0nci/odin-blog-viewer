@@ -2,6 +2,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import Home from "./Components/Home/Home";
 import AuthForm from "./Components/AuthForm/AuthForm";
+import Blog from "./Components/Blog/Blog";
 
 export default [
   {
@@ -18,6 +19,7 @@ export default [
         path: "register",
         element: <AuthForm key="register" path="register" />,
       },
+      { path: "posts/:postId", element: <Blog /> },
     ],
   },
 ];

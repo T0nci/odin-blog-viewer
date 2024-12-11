@@ -1,0 +1,99 @@
+.title,
+.published,
+.commentForm,
+.info {
+  margin-bottom: 1rem;
+}
+
+.title,
+.published {
+  text-align: center;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.content {
+  white-space: pre-wrap; /* to preserve new lines */
+
+  font-size: 1.25rem;
+  max-width: 75ch;
+  margin: 0 auto 1rem;
+}
+
+.error-info {
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.info,
+.no-comment {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.commentForm {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.commentField {
+  flex-grow: 1;
+
+  border-radius: 5px;
+  border: none;
+  padding: 0.25rem;
+  outline: 1px solid gray;
+  height: 3rem;
+  resize: none;
+  font-family: inherit;
+}
+
+.commentField:focus {
+  outline: 1px solid #00ffff;
+}
+
+.submit {
+  width: auto;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  color: #00ffff;
+  background-color: #535353;
+  cursor: pointer;
+}
+
+.errors {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.error {
+  color: red;
+}
+
+.comment {
+  display: grid;
+  row-gap: 0.5rem;
+
+  border-radius: 10px;
+  background-color: #2c2c2c;
+  padding: 1rem;
+}
+
+.comment:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 500px) {
+  .comment {
+    grid-template-columns: 1fr auto;
+  }
+}
