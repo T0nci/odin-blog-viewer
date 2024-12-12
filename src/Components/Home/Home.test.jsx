@@ -113,7 +113,7 @@ describe("Home Component", () => {
               <p
                 class="_date_4b4bfe"
               >
-                01:00 01.00.2000
+                01:00 01.01.2000
               </p>
             </button>
           </li>
