@@ -92,6 +92,10 @@
   margin-bottom: 0.5rem;
 }
 
+.me {
+  color: #00ffff;
+}
+
 @media (min-width: 500px) {
   .comment {
     grid-template-columns: 1fr auto;

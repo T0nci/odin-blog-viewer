@@ -172,7 +172,13 @@ const Blog = () => {
             <ul className={styles.comments}>
               {post.comments.map((comment) => (
                 <li key={comment.id} className={styles.comment}>
-                  <p>{comment.displayName}</p>
+                  <p>
+                    {comment.displayName === displayName ? (
+                      <span className={styles.me}>{displayName}</span>
+                    ) : (
+                      <>{comment.displayName}</>
+                    )}
+                  </p>
                   <p>at {formatDate(comment.date)}</p>
                   <p>{comment.content}</p>
                 </li>
