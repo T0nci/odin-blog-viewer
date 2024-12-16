@@ -168,7 +168,7 @@ const AuthForm = ({ path }) => {
 };
 
 AuthForm.propTypes = {
-  path: PropTypes.oneOf(["login", "register"]),
+  path: PropTypes.oneOf(["login", "register"]).isRequired,
 };
 
 export default AuthForm;
