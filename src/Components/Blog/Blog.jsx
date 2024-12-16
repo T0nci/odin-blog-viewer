@@ -131,7 +131,10 @@ const Blog = () => {
           <p className={styles.published}>
             Published: {formatDate(new Date(post.date_published))}
           </p>
-          <p className={styles.content}>{post.content}</p>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
           {!displayName ? (
             <p className={styles.info}>
               You need to be logged in to leave a comment!

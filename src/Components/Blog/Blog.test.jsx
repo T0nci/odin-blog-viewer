@@ -69,11 +69,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <p
           class="_info_8b7481"
         >
@@ -126,11 +126,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <ul
           class="_errors_8b7481"
         />
@@ -198,11 +198,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <p
           class="_info_8b7481"
         >
@@ -262,11 +262,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <p
           class="_info_8b7481"
         >
@@ -371,11 +371,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <ul
           class="_errors_8b7481"
         />
@@ -499,11 +499,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <ul
           class="_errors_8b7481"
         >
@@ -595,11 +595,11 @@ describe("Blog Component", () => {
           Published: 
           01:00 01.01.2000
         </p>
-        <p
+        <div
           class="_content_8b7481"
         >
           test content
-        </p>
+        </div>
         <ul
           class="_errors_8b7481"
         >
