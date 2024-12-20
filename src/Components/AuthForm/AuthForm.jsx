@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
+import DemoButton from "../partials/DemoButton/DemoButton";
 import styles from "./AuthForm.module.css";
 
 // One component for both login and register because they are almost exactly the same
@@ -163,6 +164,14 @@ const AuthForm = ({ path }) => {
           )}
         </p>
       </form>
+      {path === "login" && (
+        <DemoButton
+          className={styles.demo + " " + styles.submit}
+          setDisplayName={setDisplayName}
+          setErrors={setErrors}
+          navigate={navigate}
+        />
+      )}
     </>
   );
 };

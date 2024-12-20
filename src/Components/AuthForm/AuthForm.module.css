@@ -69,3 +69,8 @@
 .info > a:active {
   color: #00bbbb;
 }
+
+.demo {
+  display: block;
+  margin: 1rem auto 0;
+}
