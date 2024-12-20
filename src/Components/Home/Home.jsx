@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { formatDate, formatContent } from "../../utils";
 import styles from "./Home.module.css";
 
 const Home = () => {
   const [posts, setPosts] = useState(null);
+
+  const { displayName } = useOutletContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +33,9 @@ const Home = () => {
 
   return (
     <>
-      <h1 className={styles.heading}>Welcome to my blog!</h1>
+      <h1 className={styles.heading}>
+        Hello {displayName || "user"}, welcome to my blog!
+      </h1>
       <p className={styles.paragraph}>
         Hello, my name is T0nci, and I am a dedicated full-stack web developer
         with a passion for continuous learning and growth within the

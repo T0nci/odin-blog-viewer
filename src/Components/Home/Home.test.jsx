@@ -18,9 +18,15 @@ const mocks = vi.hoisted(() => {
 vi.mock(import("react-router-dom"), async (importOriginal) => {
   const mod = await importOriginal();
 
+  const useOutletContext = () => ({
+    displayName: "Tester",
+    setDisplayName: () => {},
+  });
+
   return {
     ...mod,
     useNavigate: mocks.useNavigate,
+    useOutletContext,
   };
 });
 
@@ -43,7 +49,9 @@ describe("Home Component", () => {
         <h1
           class="_heading_4b4bfe"
         >
-          Welcome to my blog!
+          Hello 
+          Tester
+          , welcome to my blog!
         </h1>
         <p
           class="_paragraph_4b4bfe"
@@ -86,7 +94,9 @@ describe("Home Component", () => {
         <h1
           class="_heading_4b4bfe"
         >
-          Welcome to my blog!
+          Hello 
+          Tester
+          , welcome to my blog!
         </h1>
         <p
           class="_paragraph_4b4bfe"
@@ -136,7 +146,9 @@ describe("Home Component", () => {
         <h1
           class="_heading_4b4bfe"
         >
-          Welcome to my blog!
+          Hello 
+          Tester
+          , welcome to my blog!
         </h1>
         <p
           class="_paragraph_4b4bfe"
