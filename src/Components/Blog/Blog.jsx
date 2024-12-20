@@ -181,6 +181,9 @@ const Blog = () => {
                     ) : (
                       <>{comment.displayName}</>
                     )}
+                    {comment.is_author && (
+                      <span className={styles.author}> (Author)</span>
+                    )}
                   </p>
                   <p>at {formatDate(comment.date)}</p>
                   <p>{comment.content}</p>

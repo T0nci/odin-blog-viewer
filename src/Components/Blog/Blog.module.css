@@ -112,6 +112,11 @@
   color: #00ffff;
 }
 
+.author {
+  color: gray;
+  font-size: 0.75rem;
+}
+
 @media (min-width: 500px) {
   .comment {
     grid-template-columns: 1fr auto;

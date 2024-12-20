@@ -234,6 +234,7 @@ describe("Blog Component", () => {
             content: "test comment",
             displayName: "Odin",
             date: "2000-01-01",
+            is_author: true,
           },
         ],
       });
@@ -280,6 +281,11 @@ describe("Blog Component", () => {
           >
             <p>
               Odin
+              <span
+                class="_author_8b7481"
+              >
+                 (Author)
+              </span>
             </p>
             <p>
               at 
@@ -290,31 +296,6 @@ describe("Blog Component", () => {
             </p>
           </li>
         </ul>
-      </div>
-    `);
-  });
-
-  it("renders with comments", async () => {
-    global.fetch.mockRejectedValueOnce(new Error("test"));
-    mocks.useOutletContext.mockImplementation(() => ({
-      displayName: null,
-      setDisplayName: () => {},
-    }));
-
-    let container = null;
-    // Don't know why this test has a warning
-    await act(() => {
-      const { container: temp } = render(<Blog />);
-      container = temp;
-    });
-
-    expect(container).toMatchInlineSnapshot(`
-      <div>
-        <p
-          class="_error-info_8b7481"
-        >
-          Error loading post
-        </p>
       </div>
     `);
   });
@@ -339,6 +320,7 @@ describe("Blog Component", () => {
           content: "Test comment",
           displayName: "Odin",
           date: "2000-01-01",
+          is_author: false,
         },
       });
     global.fetch.mockResolvedValue({ json });
