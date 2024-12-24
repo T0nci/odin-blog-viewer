@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useOutletContext, Link, useNavigate } from "react-router-dom";
+import { useOutletContext, Link, useNavigate } from "react-router";
 import DemoButton from "../partials/DemoButton/DemoButton";
 import styles from "./AuthForm.module.css";
 

@@ -11,7 +11,7 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock(import("react-router-dom"), async (importOriginal) => {
+vi.mock(import("react-router"), async (importOriginal) => {
   const mod = await importOriginal();
 
   // eslint-disable-next-line react/prop-types

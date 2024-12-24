@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router";
 import { useEffect, useState } from "react";
 import styles from "./Blog.module.css";
 import { formatDate } from "../../utils";
