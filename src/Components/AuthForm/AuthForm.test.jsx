@@ -120,6 +120,11 @@ describe("AuthForm Component", () => {
             </a>
           </p>
         </form>
+        <button
+          class="_demo_93d937 _submit_93d937"
+        >
+          Try Demo Account
+        </button>
       </div>
     `);
   });
@@ -269,7 +274,7 @@ describe("AuthForm Component", () => {
 
     await user.type(usernameInput, "name");
     await user.type(passwordInput, "pass");
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(mocks.setState).toHaveBeenCalledWith("what");
     expect(mocks.navigate).toHaveBeenCalledWith("/");
@@ -295,7 +300,7 @@ describe("AuthForm Component", () => {
     await user.type(passwordInput, "pass");
     await user.type(confirmInput, "confirm");
     await user.type(displayNameInput, "display");
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(mocks.navigate).toHaveBeenCalledWith("/login");
   });
@@ -316,7 +321,7 @@ describe("AuthForm Component", () => {
 
     await user.type(usernameInput, "name");
     await user.type(passwordInput, "pass");
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(screen.getByRole("listitem")).toBeInTheDocument();
     expect(screen.getByRole("listitem").textContent).toBe(
