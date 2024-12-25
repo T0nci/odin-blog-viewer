@@ -72,8 +72,8 @@ const Blog = () => {
       const response = await fetched.json();
 
       if (response.error === "401") {
-        localStorage.clear("token");
-        localStorage.clear("displayName");
+        localStorage.removeItem("token");
+        localStorage.removeItem("displayName");
         setDisplayName(null);
       } else if (response.error)
         setComment((prevComment) => ({
