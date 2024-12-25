@@ -30,6 +30,12 @@ const Blog = () => {
 
         if (!isActive) return;
 
+        if (!postJson.post) {
+          console.error(postJson);
+          setPost(new Error());
+          return;
+        }
+
         setPost({
           ...postJson.post,
           comments: commentsJson.comments
