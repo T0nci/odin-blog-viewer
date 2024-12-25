@@ -20,11 +20,11 @@ const setupRouter = (path) => {
         element: <NavBar />,
         children: [
           {
-            path: "/login",
+            path: "login",
             element: <AuthForm key="login" path="login" />,
           },
           {
-            path: "/register",
+            path: "register",
             element: <AuthForm key="register" path="register" />,
           },
         ],
