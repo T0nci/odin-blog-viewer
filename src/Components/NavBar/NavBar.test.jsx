@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { RouterProvider, createMemoryRouter } from "react-router";
 import NavBar from "./NavBar";
 
 global.localStorage = {
@@ -9,60 +10,32 @@ global.localStorage = {
   removeItem: vi.fn(),
 };
 
-const mocks = vi.hoisted(() => {
-  return {
-    link: vi.fn(),
-    setDisplayName: vi.fn(),
-  };
-});
+const Placeholder = () => {};
+const setupRouter = () => {
+  const router = createMemoryRouter(
+    [
+      {
+        path: "/",
+        element: <NavBar />,
+        children: [
+          { path: "/login", element: <Placeholder /> },
+          { path: "/register", element: <Placeholder /> },
+        ],
+      },
+    ],
+    { initialEntries: ["/"], initialIndex: 0 },
+  );
 
-vi.mock(import("react-router"), async (importOriginal) => {
-  const mod = await importOriginal();
+  const { container } = render(<RouterProvider router={router} />);
 
-  // eslint-disable-next-line react/prop-types
-  const Link = ({ children, to, ...props }) => {
-    return (
-      <a
-        onClick={(e) => {
-          e.preventDefault();
-          mocks.link(to);
-        }}
-        href={to}
-        {...props}
-      >
-        {children}
-      </a>
-    );
-  };
-
-  return {
-    ...mod,
-    Link,
-  };
-});
-
-vi.mock(import("react"), async (importOriginal) => {
-  const mod = await importOriginal();
-
-  const useState = vi.fn();
-  useState.mockImplementationOnce(() => [null, () => {}]);
-  useState.mockImplementationOnce(() => ["display name", () => {}]);
-  useState.mockImplementationOnce(() => [null, () => {}]);
-  useState.mockImplementationOnce(() => ["display name", mocks.setDisplayName]);
-
-  return {
-    ...mod,
-    useState,
-  };
-});
+  return { router, container };
+};
 
 describe("NavBar Component", () => {
   it("renders without display name", () => {
-    let container = null;
-    act(() => {
-      const { container: temp } = render(<NavBar />);
-      container = temp;
-    });
+    global.localStorage.getItem.mockImplementationOnce(() => null);
+
+    const { container } = setupRouter();
 
     expect(container).toMatchInlineSnapshot(`
       <div>
@@ -80,6 +53,7 @@ describe("NavBar Component", () => {
               >
                 <a
                   class="_nav-link_7ceb2b"
+                  data-discover="true"
                   href="/"
                 >
                   webdev.blog
@@ -88,6 +62,7 @@ describe("NavBar Component", () => {
               <li>
                 <a
                   class="_nav-link_7ceb2b"
+                  data-discover="true"
                   href="/login"
                 >
                   Login
@@ -96,6 +71,7 @@ describe("NavBar Component", () => {
               <li>
                 <a
                   class="_nav-link_7ceb2b"
+                  data-discover="true"
                   href="/register"
                 >
                   Register
@@ -134,12 +110,10 @@ describe("NavBar Component", () => {
     `);
   });
 
-  it("renders with display name", () => {
-    let container = null;
-    act(() => {
-      const { container: temp } = render(<NavBar />);
-      container = temp;
-    });
+  it("renders without display name", () => {
+    global.localStorage.getItem.mockImplementationOnce(() => "some value");
+
+    const { container } = setupRouter();
 
     expect(container).toMatchInlineSnapshot(`
       <div>
@@ -157,6 +131,7 @@ describe("NavBar Component", () => {
               >
                 <a
                   class="_nav-link_7ceb2b"
+                  data-discover="true"
                   href="/"
                 >
                   webdev.blog
@@ -203,29 +178,33 @@ describe("NavBar Component", () => {
   });
 
   it("redirects when any link is clicked", async () => {
-    const user = userEvent.setup();
-    render(<NavBar />);
+    global.localStorage.getItem.mockImplementationOnce(() => null);
 
-    await user.click(screen.getByRole("link", { name: "webdev.blog" }));
-    expect(mocks.link).toHaveBeenCalledWith("/");
+    const { router } = setupRouter();
+
+    const user = userEvent.setup();
 
     await user.click(screen.getByRole("link", { name: "Login" }));
-    expect(mocks.link).toHaveBeenCalledWith("/login");
+    expect(router.state.location.pathname).toBe("/login");
 
     await user.click(screen.getByRole("link", { name: "Register" }));
-    expect(mocks.link).toHaveBeenCalledWith("/register");
+    expect(router.state.location.pathname).toBe("/register");
+
+    await user.click(screen.getByRole("link", { name: "webdev.blog" }));
+    expect(router.state.location.pathname).toBe("/");
   });
 
-  it("redirects when logout link is clicked", async () => {
-    const user = userEvent.setup();
-    render(<NavBar />);
+  it("logs the user out when logout is clicked", async () => {
+    global.localStorage.getItem.mockImplementationOnce(() => "some value");
 
-    await user.click(screen.getByRole("button", { name: "Logout" }));
-    expect(global.localStorage.removeItem).toHaveBeenNthCalledWith(
-      1,
-      "displayName",
-    );
-    expect(global.localStorage.removeItem).toHaveBeenNthCalledWith(2, "token");
-    expect(mocks.setDisplayName).toHaveBeenCalledWith(null);
+    setupRouter();
+    const user = userEvent.setup();
+
+    const logoutButton = screen.getByRole("button", { name: "Logout" });
+    await user.click(logoutButton);
+
+    expect(logoutButton).not.toBeInTheDocument();
+    expect(global.localStorage.removeItem).toHaveBeenCalledWith("token");
+    expect(global.localStorage.removeItem).toHaveBeenCalledWith("displayName");
   });
 });
