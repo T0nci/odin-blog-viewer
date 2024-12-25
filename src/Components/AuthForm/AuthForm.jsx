@@ -54,7 +54,7 @@ const AuthForm = ({ path }) => {
           {path[0].toUpperCase() + path.slice(1)}
         </h1>
         {errors !== null && (
-          <ul className={styles.errors}>
+          <ul className={styles.errors} data-testid="errors">
             {errors.map((error) => (
               <li key={error.msg} className={styles.error}>
                 {error.msg}
@@ -155,11 +155,17 @@ const AuthForm = ({ path }) => {
         <p className={styles.info}>
           {path === "login" ? (
             <>
-              Don&apos;t have an account? <Link to="/register">Register</Link>
+              Don&apos;t have an account?{" "}
+              <Link to="/register" data-testid="link">
+                Register
+              </Link>
             </>
           ) : (
             <>
-              Already have an account? <Link to="/login">Login</Link>
+              Already have an account?{" "}
+              <Link to="/login" data-testid="link">
+                Login
+              </Link>
             </>
           )}
         </p>
