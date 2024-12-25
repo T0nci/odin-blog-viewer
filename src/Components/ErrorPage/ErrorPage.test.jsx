@@ -1,61 +1,46 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { RouterProvider, createMemoryRouter, Link } from "react-router";
 import ErrorPage from "./ErrorPage";
 
-const mocks = vi.hoisted(() => {
-  const link = vi.fn();
+const MockNavBar = () => {
+  return <Link to="/404">404</Link>;
+};
+const UncaughtError = () => {
+  throw new Error("test error");
+};
+const setupRouter = (path) => {
+  const router = createMemoryRouter(
+    [
+      {
+        path: "/",
+        element: <MockNavBar />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/error",
+        element: <UncaughtError />,
+        errorElement: <ErrorPage />,
+      },
+    ],
+    {
+      initialEntries: [path],
+      initialIndex: 0,
+    },
+  );
 
-  return {
-    link,
-  };
-});
+  const { container } = render(<RouterProvider router={router} />);
 
-vi.mock(import("react-router"), async (importOriginal) => {
-  const mod = await importOriginal();
-
-  // eslint-disable-next-line react/prop-types
-  const Link = ({ children, to, ...rest }) => {
-    return (
-      <a
-        onClick={(e) => {
-          e.preventDefault();
-          mocks.link(to);
-        }}
-        href={to}
-        {...rest}
-      >
-        {children}
-      </a>
-    );
-  };
-
-  const useRouteError = vi.fn();
-  useRouteError.mockImplementationOnce(() => new Error());
-  useRouteError.mockImplementationOnce(() => new Error());
-  useRouteError.mockImplementationOnce(() => ({
-    status: 404,
-    statusText: "Not Found",
-  }));
-  useRouteError.mockImplementationOnce(() => ({
-    error: new Error("Test error 1"),
-  }));
-  useRouteError.mockImplementationOnce(() => new Error("Test error 2"));
-
-  return {
-    ...mod,
-    Link,
-    useRouteError,
-  };
-});
+  return { router, container };
+};
 
 describe("ErrorPage Component", () => {
-  it("renders", () => {
-    let container = null;
-    act(() => {
-      const { container: temp } = render(<ErrorPage />);
-      container = temp;
-    });
+  it("renders with React Router error", async () => {
+    const { container } = setupRouter("/");
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("link", { name: "404" }));
 
     expect(container).toMatchInlineSnapshot(`
       <div>
@@ -65,10 +50,11 @@ describe("ErrorPage Component", () => {
           <p
             class="_error_804c82"
           >
-            Error
+            404: Not Found
           </p>
           <a
             class="_link_804c82"
+            data-discover="true"
             href="/"
           >
             Go back to the homepage
@@ -78,38 +64,49 @@ describe("ErrorPage Component", () => {
     `);
   });
 
-  it("redirects to homepage with link", async () => {
-    const user = userEvent.setup();
-    act(() => render(<ErrorPage />));
+  it("renders with error in component", () => {
+    const { container } = setupRouter("/error");
 
+    expect(container).toMatchInlineSnapshot(`
+      <div>
+        <div
+          class="_parent_804c82"
+        >
+          <p
+            class="_error_804c82"
+          >
+            Error: test error
+          </p>
+          <a
+            class="_link_804c82"
+            data-discover="true"
+            href="/"
+          >
+            Go back to the homepage
+          </a>
+        </div>
+      </div>
+    `);
+  });
+
+  it("has a link that redirects to home", async () => {
+    const { container, router } = setupRouter("/error");
+
+    const user = userEvent.setup();
     await user.click(
       screen.getByRole("link", { name: "Go back to the homepage" }),
     );
 
-    expect(mocks.link).toHaveBeenCalledWith("/");
-  });
-
-  it("shows error with status", () => {
-    act(() => render(<ErrorPage />));
-
-    const error = screen.getByRole("paragraph");
-
-    expect(error.textContent).toBe("404: Not Found");
-  });
-
-  it("shows error with error object", () => {
-    act(() => render(<ErrorPage />));
-
-    const error = screen.getByRole("paragraph");
-
-    expect(error.textContent).toBe("Error: Test error 1");
-  });
-
-  it("shows error", () => {
-    act(() => render(<ErrorPage />));
-
-    const error = screen.getByRole("paragraph");
-
-    expect(error.textContent).toBe("Error: Test error 2");
+    expect(router.state.location.pathname).toBe("/");
+    expect(container).toMatchInlineSnapshot(`
+      <div>
+        <a
+          data-discover="true"
+          href="/404"
+        >
+          404
+        </a>
+      </div>
+    `);
   });
 });
