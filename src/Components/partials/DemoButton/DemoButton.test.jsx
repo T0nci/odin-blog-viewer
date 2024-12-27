@@ -31,7 +31,7 @@ describe("DemoButton Component", () => {
     `);
   });
 
-  it("deletes post", async () => {
+  it("logs the user in", async () => {
     const setItem = vi.fn();
     global.localStorage = { setItem };
     const json = vi.fn().mockResolvedValueOnce({
