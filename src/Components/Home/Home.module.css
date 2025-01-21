@@ -9,6 +9,7 @@
   text-align: justify;
   font-size: 1.25rem;
   line-height: 1.25;
+  hyphens: auto;
   max-width: 75ch;
   margin: 0 auto 1rem;
 }
