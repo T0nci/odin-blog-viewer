@@ -9,7 +9,11 @@ const formatDate = (date) => {
 };
 
 const formatContent = (content) => {
-  return content.length < 140 ? content : content.slice(0, 137) + "...";
+  const newContent = content.replaceAll(/<.*?>/g, "");
+
+  return newContent.length < 140
+    ? newContent
+    : newContent.slice(0, 137) + "...";
 };
 
 export { formatDate, formatContent };
