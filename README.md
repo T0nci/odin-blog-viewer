@@ -49,6 +49,6 @@ o
 
 ## License
 
-[MIT](LICENSE.txt)
+[MIT](LICENSE)
 
 [(back to top)](#blog-api-client)
